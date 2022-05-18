@@ -6,7 +6,7 @@ API usando Java 1.8 ou 11 e Spring Boot.
 Certifique-se de ter instalado:
 ##### Pré-requisitos
 * Java JDK 11
-* Maven 3
+* Maven 3.3
 * Docker ([Install](https://docs.docker.com/v17.09/engine/installation/linux/docker-ce/ubuntu/)  | [Configure](https://docs.docker.com/v17.09/engine/installation/linux/linux-postinstall/))
 
 ##### Pré-requisitos de desenvolvimento
