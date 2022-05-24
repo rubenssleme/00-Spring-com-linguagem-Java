@@ -1,0 +1,16 @@
+spring:
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    database: SQL_SERVER
+server:
+  port: 8089
+crypto:
+  driverClassName: XUzQQkt133b3SjNpuR4PCQ==4XgWEuHUfum9zvUJw7+5gvqDEi3OcOlsHet3kVlrRBjHqrvkRFf8bCM/2hfGoINr
+  url: 1fGnXOE/F45e+eFeaFqWPA==yYoRTNhal9IHphWap/4AKuUKgQzpG6vHHtDjUhBDBp8FIP97SMz/ijJ5IyXOXHWTHSx3060t0vy9a6x/5F0JOQ==
+  username: 4MJ27V+7QAnLSVmPOUGRyQ==b9m89Zu8flw5TaVMjIMQ0w==
+  password: hk6nDXlQcdjRneI+fPxkxg==FHVw01cSXgMPZfSVg2bHOg==
+cors:
+  enabled: true

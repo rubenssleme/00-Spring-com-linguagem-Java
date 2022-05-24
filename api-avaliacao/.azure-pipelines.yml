@@ -1,0 +1,35 @@
+trigger:
+- master
+- release/*
+- develop
+
+pool:
+  name: ISPPAP20-Agents
+
+stages:
+
+  - template: '/.pipeline/stages/builds/stage-build-pipeline.yml'
+    parameters:
+      jarFilePath: 'target/api.jar'
+      execute: true
+  
+  - template: '/.pipeline/stages/deploy/stage-deploy-pipeline.yml'
+    parameters:
+      azureSubscription: 'Azure Iteris Prod'
+      environment: dev
+      dependsOnStage: BuildJarFile
+      execute: ${{ eq(variables['Build.SourceBranch'], 'refs/heads/develop') }}
+
+  - template: '/.pipeline/stages/deploy/stage-deploy-pipeline.yml'
+    parameters:
+      azureSubscription: 'Azure Iteris Prod'
+      environment: uat
+      dependsOnStage: BuildJarFile
+      execute: ${{ startsWith(variables['Build.SourceBranch'], 'refs/heads/release/') }}
+      
+  - template: '/.pipeline/stages/deploy/stage-deploy-pipeline.yml'
+    parameters:
+      azureSubscription: 'Azure Iteris Prod'
+      environment: prod
+      dependsOnStage: BuildJarFile
+      execute: ${{ eq(variables['Build.SourceBranch'], 'refs/heads/master') }}

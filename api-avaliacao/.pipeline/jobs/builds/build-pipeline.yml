@@ -1,0 +1,78 @@
+parameters:
+  - name: jarFilePath
+    type: string
+    default: 'target/api.jar'
+  - name: execute
+    displayName: 'Execute this job'
+    type: boolean
+    default: true
+  - name: dependsOnJob
+    displayName: 'List of jobs this job depends on'
+    type: object
+    default: []
+
+jobs:
+- job: BuildJarFile
+  displayName: 'Build Jar File'
+  timeoutInMinutes: 20
+  condition: ${{ parameters.execute }}
+  dependsOn: ${{ parameters.dependsOnJob }}
+
+  steps:
+  - task: Maven@2
+    displayName: Clean
+    inputs:
+      goals: clean
+      publishJUnitResults: false
+
+  - task: Maven@2
+    displayName: Package
+    inputs:
+      mavenPomFile: 'pom.xml'
+      publishJUnitResults: true
+      testResultsFiles: '**/TEST-*.xml'
+      goals: 'package'
+      continueOnError: true
+
+  - task: PublishTestResults@2
+    displayName: 'Publish Tests Results: test.xml'
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**/TEST-*.xml'
+    condition: and(succeeded(), or(in(variables['build.SourceBranch'], 'refs/heads/develop', 'refs/heads/master'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')))
+
+  - task: ArchiveFiles@2
+    displayName: 'Archive files'
+    inputs:
+      rootFolderOrFile: ${{ parameters.jarFilePath }}
+      includeRootFolder: false
+      archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildNumber).zip'
+
+  - task: CopyFiles@2
+    displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+    inputs:
+      SourceFolder: '$(system.defaultworkingdirectory)'
+      Contents: '**.zip'
+      TargetFolder: '$(build.artifactstagingdirectory)'
+    #condition: and(succeeded(), or(in(variables['build.SourceBranch'], 'refs/heads/develop', 'refs/heads/master'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')))
+
+  # - task: Maven@2
+  #   displayName: Sonar
+  #   inputs:
+  #     goals: sonar:sonar
+  #     publishJUnitResults: false
+
+  # - task: Maven@2
+  # displayName: SonarQube
+  # inputs:
+  #   mavenPomFile: pom.xml
+  #   goal: sonar:sonar
+  #   mavenOptions: -Dsonar.projectKey=api-timesheet -Dsonar.host.url=http://sonarq.iteris.com.br -Dsonar.login=c83177977214ca5e4109882ffec4687683e1a937 -Dsonar.branch.name=develop
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: drop'
+    inputs:
+      PathtoPublish: '$(build.artifactstagingdirectory)'
+      artifactName: drop
+    #condition: and(succeeded(), or(in(variables['build.SourceBranch'], 'refs/heads/develop', 'refs/heads/master'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')))
+

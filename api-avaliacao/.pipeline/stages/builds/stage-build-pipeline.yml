@@ -1,0 +1,21 @@
+parameters:
+  - name: jarFilePath
+    type: string
+    default: 'target/api.jar'
+  - name: execute
+    displayName: 'Execute this job'
+    type: boolean
+    default: true
+    
+stages:
+
+- stage: BuildJarFile
+  displayName: 'Build Jar file'
+  
+  jobs:
+  
+  - template: '../../jobs/builds/build-pipeline.yml'
+    parameters:
+      jarFilePath: ${{ parameters.jarFilePath }}
+      execute: ${{ parameters.execute }}
+      

@@ -1,0 +1,21 @@
+spring:
+  jpa:
+    hibernate:
+      dialect: org.hibernate.dialect.H2Dialect
+      default_schema: template
+    show-sql: true
+  #datasource:
+    #url: "jdbc:h2:mem:testdb;MODE=Oracle;INIT=CREATE SCHEMA IF NOT EXISTS TEMPLATE\\;SET SCHEMA_SEARCH_PATH TEMPLATE;"
+    #driver-class-name: org.h2.Driver
+    #username: sa
+    #password: sa
+  h2.console.enabled: true
+server:
+  port: 8080
+  servlet: 
+    contextPath: /
+crypto:
+  driverClassName: XUzQQkt133b3SjNpuR4PCQ==4XgWEuHUfum9zvUJw7+5gvqDEi3OcOlsHet3kVlrRBjHqrvkRFf8bCM/2hfGoINr
+  url: mfI25TvK6L7gDKBZ7yzdNw==aRmOm3/zaG6icGKDBHZ2tqu/E3Agnu1swVFoWqMMbcsW/XjPkuQ/D2jTENsFOlP3puDSYrzJN4u2iDPsjZsKrX8h60s8oxLJvKmTmjcVQ9Q=
+  username: W8gJLzEf17ZZqg3eaSy0jQ==oROOaABb2xeRcLrTGerBKA==
+  password: xlxkxJRem2m35VWbn/K6fg==In0mzs2OnLwzaQPO2RlVdA==

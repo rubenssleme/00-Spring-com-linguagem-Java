@@ -1,0 +1,42 @@
+parameters:
+  - name: jarFilePath
+    type: string
+    default: 'target/api.jar'
+  - name: execute
+    displayName: 'Execute this job'
+    type: boolean
+    default: true
+  - name: azureSubscription
+    displayName: Which subscription to use
+    type: string
+  - name: environment
+    displayName: Which environment to deploy to
+    type: string
+  - name: dependsOnJob
+    displayName: 'List of jobs this job depends on'
+    type: object
+    default: []
+
+jobs:
+- deployment: DeployAppService_${{ parameters.environment }}
+  displayName: 'Deploy to ${{ parameters.environment }}'
+  timeoutInMinutes: 20
+  condition: ${{ parameters.execute }}
+  dependsOn: ${{ parameters.dependsOnJob }}
+  environment: ${{ parameters.environment }}
+
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+          - task: AzureRmWebAppDeployment@3
+            displayName: 'Azure App Service Deploy: iteris-bancohoras-api-${{ parameters.environment }}'
+            inputs:
+              azureSubscription: ${{ parameters.azureSubscription }}
+              packageForLinux: '$(Agent.BuildDirectory)/**/$(Build.BuildNumber).zip'
+              appType: applinux
+              WebAppName: 'iteris-bancohoras-api-${{ parameters.environment }}'
+              ImageSource: Builtin
+              RuntimeStack: 'JAVA|11-java11'
+              StartupCommand: 'java -jar /home/site/wwwroot/api.jar'
+              TakeAppOfflineFlag: true

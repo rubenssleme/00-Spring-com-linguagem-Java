@@ -1,0 +1,42 @@
+spring:
+  jpa:
+    hibernate:
+      dialect: org.hibernate.dialect.SQLServer2012Dialect
+    show-sql: true
+server:
+  port: 8080
+  servlet:
+    contextPath: /
+locale:
+  default: pt-BR
+crypto:
+  driverClassName: XUzQQkt133b3SjNpuR4PCQ==4XgWEuHUfum9zvUJw7+5gvqDEi3OcOlsHet3kVlrRBjHqrvkRFf8bCM/2hfGoINr
+  url: gY/sBtDavrCcNk68LYsK/A==EU6p81/46SFJUNaBaUHo920BJ4iC68QGCHQ3GzQv1a97dqu8IXwGeKYoKLoKEYhLGntaMNc8UVFSB5krQoWnB/3XIIgzMNfry+txAZgRNww=
+  username: tyQnOVzCpFuIbW2rWoHagg==K5P9noXq2ttpR68Syj479Q==
+  password: QoHbdqT6XLqFau2z2XMPjg==1HSpX+eP5ojSKofeJRTSyA==
+secret:
+  key: 7Pj1s2JRldJNYdmq
+springdoc:
+  show-actuator: true
+  default-produces-media-type: application/json
+  writer-with-default-pretty-printer: true
+cors:
+  enabled: true
+  allowed-headers: "*"
+  allowed-methods: GET, POST, PUT, DELETE, OPTIONS
+  allowed-origins: "*"
+  exposed-headers: Content-Disposition, Content-Length, Content-Type
+azure:
+  activedirectory:
+    tenant-id: 727d1266-ccaa-4c9f-91b5-e392a5fb335d
+    client-id: d35b6f2d-a474-45da-ba39-74e748223bd4
+    client-secret: Chf0h4y40Lr~~A87i.QrVX5BA_B.tGi91Q
+    app-id-uri: api://d35b6f2d-a474-45da-ba39-74e748223bd4
+    authorization-clients:
+      api:
+        scopes: api://d35b6f2d-a474-45da-ba39-74e748223bd4/User.Impersonation
+      graph:
+        scopes: https://graph.microsoft.com/User.Read.All
+fresh:
+  source:
+    url: https://iteris-freshservice-api-dev.azurewebsites.net
