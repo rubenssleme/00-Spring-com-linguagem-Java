@@ -1,0 +1,34 @@
+parameters:
+  - name: jarFilePath
+    type: string
+    default: 'target/api.jar'
+  - name: execute
+    displayName: 'Execute this job'
+    type: boolean
+    default: true
+  - name: azureSubscription
+    displayName: Which subscription to use
+    type: string
+  - name: environment
+    displayName: Which environment to deploy to
+    type: string
+  - name: dependsOnStage
+    type: object
+    default: []
+
+stages:
+
+- stage: Deploy_${{ parameters.environment }}
+  displayName: 'Deploy to ${{ parameters.environment }}'
+  dependsOn: ${{ parameters.dependsOnStage }}
+  condition: ${{ parameters.execute }}
+  
+  jobs:
+  
+  - template: '../../jobs/deploy/deploy-pipeline.yml'
+    parameters:
+      jarFilePath: ${{ parameters.jarFilePath }}
+      execute: ${{ parameters.execute }}
+      environment: ${{ parameters.environment }}
+      azureSubscription: ${{ parameters.azureSubscription }}
+      

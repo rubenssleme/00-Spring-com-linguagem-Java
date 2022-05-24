@@ -1,0 +1,13 @@
+spring:
+  profiles: prod
+  jpa:
+    show-sql: false
+server:
+  port: 8080
+crypto:
+  driverClassName: XUzQQkt133b3SjNpuR4PCQ==4XgWEuHUfum9zvUJw7+5gvqDEi3OcOlsHet3kVlrRBjHqrvkRFf8bCM/2hfGoINr
+  url: gY/sBtDavrCcNk68LYsK/A==EU6p81/46SFJUNaBaUHo920BJ4iC68QGCHQ3GzQv1a97dqu8IXwGeKYoKLoKEYhLGntaMNc8UVFSB5krQoWnB/3XIIgzMNfry+txAZgRNww=
+  username: tyQnOVzCpFuIbW2rWoHagg==K5P9noXq2ttpR68Syj479Q==
+  password: QoHbdqT6XLqFau2z2XMPjg==1HSpX+eP5ojSKofeJRTSyA==   
+cors:
+  enabled: true
